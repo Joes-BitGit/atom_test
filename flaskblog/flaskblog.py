@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, url_for
+from forms import RegistrationForm, LogInForm
 
 app = Flask(__name__)
+
+# ideally to be random characters
+# import secrets
+# secrets.token_hex('Number of bytes')
+app.config['SECRET_KEY'] = '2960ff25e8605752'
 
 posts = [
     {
@@ -25,6 +31,16 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', title='About')
+
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/login')
+def login():
+    form = LogInForm()
+    return render_template('login.html', title='Login', form=form)
 
 
 # to run using python3 flaskblog.py instead of FLASK_DEBUG=1, flask run
